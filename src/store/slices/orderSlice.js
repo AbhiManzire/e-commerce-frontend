@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import api from '../../utils/apiConfig';
+import api from '../../utils/axiosConfig';
 
 // Async thunks
 export const createOrder = createAsyncThunk(
