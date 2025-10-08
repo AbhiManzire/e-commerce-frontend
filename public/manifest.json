@@ -1,0 +1,9 @@
+{
+  "short_name": "Mearn Sneakers",
+  "name": "Mearn Sneakers - Premium Footwear & Fashion",
+  "icons": [],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#000000",
+  "background_color": "#ffffff"
+}

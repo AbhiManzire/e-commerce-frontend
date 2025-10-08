@@ -1,0 +1,19 @@
+<svg width="300" height="120" viewBox="0 0 300 120" xmlns="http://www.w3.org/2000/svg">
+  <!-- Left Antler -->
+  <path d="M60 50 L50 35 L45 40 L40 30 L35 35 L30 25 L25 30 L20 20" stroke="white" stroke-width="3" fill="none"/>
+  
+  <!-- Right Antler -->
+  <path d="M240 50 L250 35 L255 40 L260 30 L265 35 L270 25 L275 30 L280 20" stroke="white" stroke-width="3" fill="none"/>
+  
+  <!-- YOUTH text -->
+  <text x="150" y="45" text-anchor="middle" font-family="Arial, sans-serif" font-size="32" font-weight="bold" fill="white">YOUTH</text>
+  
+  <!-- CIRCLE text -->
+  <text x="150" y="70" text-anchor="middle" font-family="Arial, sans-serif" font-size="20" font-weight="normal" fill="white" letter-spacing="3">CIRCLE</text>
+  
+  <!-- Six-pointed star (upward triangle) -->
+  <path d="M150 80 L130 100 L170 100 Z" stroke="white" stroke-width="2" fill="none"/>
+  
+  <!-- Six-pointed star (downward triangle) -->
+  <path d="M150 100 L130 80 L170 80 Z" stroke="white" stroke-width="2" fill="none"/>
+</svg>
