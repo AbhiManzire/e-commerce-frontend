@@ -1,12 +1,12 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../utils/axiosConfig';
 
 // Async thunks
 export const fetchProducts = createAsyncThunk(
   'product/fetchProducts',
   async (params = {}, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/products', { params });
+      const response = await api.get('/api/products', { params });
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -18,7 +18,7 @@ export const fetchProductById = createAsyncThunk(
   'product/fetchProductById',
   async (id, { rejectWithValue }) => {
     try {
-      const response = await axios.get(`/api/products/${id}`);
+      const response = await api.get(`/api/products/${id}`);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -30,7 +30,7 @@ export const fetchTopProducts = createAsyncThunk(
   'product/fetchTopProducts',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/products/top/rated');
+      const response = await api.get('/api/products/top/rated');
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -42,7 +42,7 @@ export const fetchFilterOptions = createAsyncThunk(
   'product/fetchFilterOptions',
   async (_, { rejectWithValue }) => {
     try {
-      const response = await axios.get('/api/products/filters');
+      const response = await api.get('/api/products/filters');
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

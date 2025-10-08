@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../utils/apiConfig';
 
 // Async thunks
 export const createOrder = createAsyncThunk(
@@ -13,7 +13,7 @@ export const createOrder = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await axios.post('http://localhost:5000/api/orders', order, config);
+      const response = await api.post('http://localhost:5000/api/orders', order, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -93,7 +93,7 @@ export const getOrderById = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await axios.get(`http://localhost:5000/api/orders/${id}`, config);
+      const response = await api.get(`http://localhost:5000/api/orders/${id}`, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || { message: 'Failed to fetch order' });
@@ -112,7 +112,7 @@ export const payOrder = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await axios.put(`http://localhost:5000/api/orders/${orderId}/pay`, paymentResult, config);
+      const response = await api.put(`http://localhost:5000/api/orders/${orderId}/pay`, paymentResult, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -130,7 +130,7 @@ export const getUserOrders = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await axios.get('http://localhost:5000/api/orders/myorders', config);
+      const response = await api.get('http://localhost:5000/api/orders/myorders', config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);

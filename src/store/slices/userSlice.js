@@ -1,5 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import axios from 'axios';
+import api from '../../utils/apiConfig';
 
 const userFromStorage = localStorage.getItem('userInfo')
   ? JSON.parse(localStorage.getItem('userInfo'))
@@ -10,7 +10,7 @@ export const login = createAsyncThunk(
   'user/login',
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/users/login', { email, password });
+      const response = await api.post('/api/users/login', { email, password });
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
@@ -23,7 +23,7 @@ export const register = createAsyncThunk(
   'user/register',
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const response = await axios.post('/api/users', { name, email, password });
+      const response = await api.post('/api/users', { name, email, password });
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
@@ -42,7 +42,7 @@ export const getUserProfile = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await axios.get('/api/users/profile', config);
+      const response = await api.get('/api/users/profile', config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -61,7 +61,7 @@ export const updateUserProfile = createAsyncThunk(
           Authorization: `Bearer ${userState.userInfo.token}`,
         },
       };
-      const response = await axios.put('/api/users/profile', user, config);
+      const response = await api.put('/api/users/profile', user, config);
       localStorage.setItem('userInfo', JSON.stringify(response.data));
       return response.data;
     } catch (error) {
