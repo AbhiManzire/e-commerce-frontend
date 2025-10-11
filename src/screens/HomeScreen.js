@@ -158,54 +158,7 @@ const HomeScreen = () => {
         <Meta />
         
         {/* Hero Banner */}
-        <div className="relative bg-gradient-to-br from-gray-200 to-gray-500 py-20 overflow-hidden">
-          {/* Dynamic Background Images */}
-          <div className="absolute inset-0">
-            {/* Rotating Background Images */}
-            <div className="absolute inset-0 opacity-10">
-              <div className="absolute top-0 left-0 w-1/3 h-1/3 bg-cover bg-center rounded-full animate-spin" style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=300&h=300&fit=crop")',
-                animationDuration: '20s'
-              }}></div>
-              <div className="absolute top-0 right-0 w-1/4 h-1/4 bg-cover bg-center rounded-full animate-spin" style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1472851294608-062f824d29cc?w=300&h=300&fit=crop")',
-                animationDuration: '15s',
-                animationDirection: 'reverse'
-              }}></div>
-              <div className="absolute bottom-0 left-0 w-1/5 h-1/5 bg-cover bg-center rounded-full animate-spin" style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1445205170230-053b83016050?w=300&h=300&fit=crop")',
-                animationDuration: '25s'
-              }}></div>
-              <div className="absolute bottom-0 right-0 w-1/6 h-1/6 bg-cover bg-center rounded-full animate-spin" style={{
-                backgroundImage: 'url("https://images.unsplash.com/photo-1469334031218-e382a71b716b?w=300&h=300&fit=crop")',
-                animationDuration: '18s',
-                animationDirection: 'reverse'
-              }}></div>
-            </div>
-            
-            {/* Floating Fashion Elements */}
-            <div className="absolute top-10 left-10 w-20 h-20 bg-gradient-to-r from-blue-400 to-purple-500 rounded-full opacity-20 animate-pulse"></div>
-            <div className="absolute top-32 right-20 w-16 h-16 bg-gradient-to-r from-pink-400 to-red-500 rounded-full opacity-20 animate-bounce"></div>
-            <div className="absolute bottom-20 left-1/4 w-12 h-12 bg-gradient-to-r from-green-400 to-blue-500 rounded-full opacity-20 animate-ping"></div>
-            <div className="absolute bottom-32 right-1/3 w-14 h-14 bg-gradient-to-r from-yellow-400 to-orange-500 rounded-full opacity-20 animate-pulse"></div>
-            
-            {/* Animated Fashion Lines */}
-            <div className="absolute top-1/4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-blue-300 to-transparent opacity-30 animate-pulse"></div>
-            <div className="absolute bottom-1/4 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-purple-300 to-transparent opacity-30 animate-pulse" style={{animationDelay: '1s'}}></div>
-            <div className="absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-pink-300 to-transparent opacity-30 animate-pulse" style={{animationDelay: '2s'}}></div>
-            
-            {/* Floating Fashion Particles */}
-            <div className="absolute top-1/3 left-1/3 w-2 h-2 bg-yellow-400 rounded-full opacity-40 animate-bounce" style={{animationDelay: '0.5s'}}></div>
-            <div className="absolute top-2/3 right-1/4 w-1 h-1 bg-red-400 rounded-full opacity-40 animate-bounce" style={{animationDelay: '1.5s'}}></div>
-            <div className="absolute top-1/2 left-1/5 w-1.5 h-1.5 bg-indigo-400 rounded-full opacity-40 animate-bounce" style={{animationDelay: '2s'}}></div>
-            <div className="absolute top-1/4 right-1/3 w-1 h-1 bg-green-400 rounded-full opacity-40 animate-bounce" style={{animationDelay: '0.8s'}}></div>
-            <div className="absolute bottom-1/3 left-1/2 w-1.5 h-1.5 bg-purple-400 rounded-full opacity-40 animate-bounce" style={{animationDelay: '1.2s'}}></div>
-            
-            {/* Geometric Shapes */}
-            <div className="absolute top-1/6 right-1/6 w-8 h-8 border-2 border-blue-400 opacity-20 animate-spin" style={{animationDuration: '10s'}}></div>
-            <div className="absolute bottom-1/6 left-1/6 w-6 h-6 border-2 border-pink-400 opacity-20 animate-spin" style={{animationDuration: '8s', animationDirection: 'reverse'}}></div>
-            <div className="absolute top-2/3 left-2/3 w-4 h-4 border-2 border-green-400 opacity-20 animate-spin" style={{animationDuration: '12s'}}></div>
-          </div>
+        <div className="relative bg-gradient-to-br from-gray-200 to-gray-300 py-20 overflow-hidden">
           
           <div className="relative z-10 max-w-7xl mx-auto px-4">
             <div className="text-center">
@@ -219,166 +172,226 @@ const HomeScreen = () => {
         {/* Product Carousels */}
         <div className="space-y-8">
           {/* Men's Categories */}
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center text-gray-800 border-b-2 border-blue-500 pb-2"></h2>
+          <div className="space-y-6">
+            {/* Men's Collection Header */}
+            <div className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-blue-500 via-indigo-500 to-purple-500 opacity-90"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}></div>
+              <div className="relative z-10 py-16">
+                <div className="max-w-7xl mx-auto px-4 text-center">
+                  <div className="inline-block">
+                    <h2 className="text-5xl font-bold text-white mb-4 tracking-wider transform hover:scale-105 transition-transform duration-300">
+                      MEN'S COLLECTION
+                    </h2>
+                    <div className="w-32 h-1 bg-white mx-auto rounded-full"></div>
+                    <p className="text-white text-lg mt-4 opacity-90">
+                      Discover the latest trends in men's fashion
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             {/* Men's T-Shirts */}
             <ProductCarousel 
               title="MEN'S T-SHIRTS" 
-              products={products.filter(p => p.category === 'tshirt').slice(0, 5)}
+              products={products.filter(p => p.category === 'tshirt')}
               category="tshirt"
+              theme="mens"
             />
 
             {/* Men's Shirts */}
             <ProductCarousel 
               title="MEN'S SHIRTS" 
-              products={products.filter(p => p.category === 'shirt').slice(0, 5)}
+              products={products.filter(p => p.category === 'shirt')}
               category="shirt"
+              theme="mens"
             />
 
             {/* Men's Jeans */}
           <ProductCarousel 
               title="MEN'S JEANS" 
-              products={products.filter(p => p.category === 'jeans').slice(0, 5)}
+              products={products.filter(p => p.category === 'jeans')}
               category="jeans"
+              theme="mens"
           />
 
             {/* Men's Sneakers */}
           <ProductCarousel 
               title="MEN'S SNEAKERS" 
-              products={products.filter(p => p.category === 'sneakers').slice(0, 5)}
+              products={products.filter(p => p.category === 'sneakers')}
             category="sneakers"
+            theme="mens"
           />
 
             {/* Men's Cargo */}
             <ProductCarousel 
               title="MEN'S CARGO" 
-              products={products.filter(p => p.category === 'cargo').slice(0, 5)}
+              products={products.filter(p => p.category === 'cargo')}
               category="cargo"
+              theme="mens"
             />
 
             {/* Men's Trousers */}
           <ProductCarousel 
               title="MEN'S TROUSERS" 
-              products={products.filter(p => p.category === 'trousers').slice(0, 5)}
+              products={products.filter(p => p.category === 'trousers')}
               category="trousers"
+              theme="mens"
             />
 
             {/* Men's Hoodies & Sweaters */}
           <ProductCarousel 
               title="MEN'S HOODIES & SWEATERS" 
-              products={products.filter(p => p.category === 'hoodies-sweaters').slice(0, 5)}
+              products={products.filter(p => p.category === 'hoodies-sweaters')}
               category="hoodies-sweaters"
+              theme="mens"
             />
 
             {/* Men's Flip Flops */}
           <ProductCarousel 
               title="MEN'S FLIP FLOPS" 
-              products={products.filter(p => p.category === 'flipflop').slice(0, 5)}
+              products={products.filter(p => p.category === 'flipflop')}
               category="flipflop"
+              theme="mens"
             />
 
             {/* Men's Sport */}
           <ProductCarousel 
               title="MEN'S SPORT" 
-              products={products.filter(p => p.category === 'men-sport').slice(0, 5)}
+              products={products.filter(p => p.category === 'men-sport')}
               category="men-sport"
+              theme="mens"
             />
 
             {/* Men's Accessories */}
           <ProductCarousel 
               title="MEN'S ACCESSORIES" 
-              products={products.filter(p => p.category === 'men-accessories').slice(0, 5)}
+              products={products.filter(p => p.category === 'men-accessories')}
               category="men-accessories"
+              theme="mens"
           />
         </div>
 
           {/* Ladies' Categories */}
-          <div className="space-y-8">
-            <h2 className="text-3xl font-bold text-center text-gray-800 border-b-2 border-pink-500 pb-2">LADIES' COLLECTION</h2>
+          <div className="space-y-6">
+            {/* Ladies' Collection Header */}
+            <div className="relative overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-rose-500 to-red-500 opacity-90"></div>
+              <div className="absolute inset-0" style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+              }}></div>
+              <div className="relative z-10 py-16">
+                <div className="max-w-7xl mx-auto px-4 text-center">
+                  <div className="inline-block">
+                    <h2 className="text-5xl font-bold text-white mb-4 tracking-wider transform hover:scale-105 transition-transform duration-300">
+                      LADIES' COLLECTION
+                    </h2>
+                    <div className="w-32 h-1 bg-white mx-auto rounded-full"></div>
+                    <p className="text-white text-lg mt-4 opacity-90">
+                      Explore elegant and trendy women's fashion
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
             
             {/* Ladies' T-Shirts */}
             <ProductCarousel 
               title="LADIES' T-SHIRTS" 
-              products={products.filter(p => p.category === 'ladies-tshirt').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-tshirt')}
               category="ladies-tshirt"
+              theme="ladies"
             />
 
             {/* Ladies' Shirts */}
             <ProductCarousel 
               title="LADIES' SHIRTS" 
-              products={products.filter(p => p.category === 'ladies-shirt').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-shirt')}
               category="ladies-shirt"
+              theme="ladies"
             />
 
             {/* Ladies' Jeans */}
             <ProductCarousel 
               title="LADIES' JEANS" 
-              products={products.filter(p => p.category === 'ladies-jeans').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-jeans')}
               category="ladies-jeans"
+              theme="ladies"
             />
 
             {/* Ladies' Shorts */}
             <ProductCarousel 
               title="LADIES' SHORTS" 
-              products={products.filter(p => p.category === 'ladies-shorts').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-shorts')}
               category="ladies-shorts"
+              theme="ladies"
             />
 
             {/* Ladies' Co-ord Sets */}
             <ProductCarousel 
               title="LADIES' CO-ORD SETS" 
-              products={products.filter(p => p.category === 'coord-set').slice(0, 5)}
+              products={products.filter(p => p.category === 'coord-set')}
               category="coord-set"
+              theme="ladies"
             />
 
             {/* Ladies' Cargo */}
             <ProductCarousel 
               title="LADIES' CARGO" 
-              products={products.filter(p => p.category === 'ladies-cargo').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-cargo')}
               category="ladies-cargo"
+              theme="ladies"
             />
 
             {/* Ladies' Trousers */}
             <ProductCarousel 
               title="LADIES' TROUSERS" 
-              products={products.filter(p => p.category === 'ladies-trousers').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-trousers')}
               category="ladies-trousers"
+              theme="ladies"
             />
 
             {/* Ladies' Hoodies */}
             <ProductCarousel 
               title="LADIES' HOODIES" 
-              products={products.filter(p => p.category === 'ladies-hoodies').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-hoodies')}
               category="ladies-hoodies"
+              theme="ladies"
             />
 
             {/* Ladies' Sport */}
             <ProductCarousel 
               title="LADIES' SPORT" 
-              products={products.filter(p => p.category === 'ladies-sport').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-sport')}
               category="ladies-sport"
+              theme="ladies"
             />
 
             {/* Ladies' Clothing */}
             <ProductCarousel 
               title="LADIES' CLOTHING" 
-              products={products.filter(p => p.category === 'ladies-clothing').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-clothing')}
               category="ladies-clothing"
+              theme="ladies"
             />
 
             {/* Ladies' Accessories */}
             <ProductCarousel 
               title="LADIES' ACCESSORIES" 
-              products={products.filter(p => p.category === 'ladies-accessories').slice(0, 5)}
+              products={products.filter(p => p.category === 'ladies-accessories')}
               category="ladies-accessories"
+              theme="ladies"
             />
 
             {/* Ladies' Lingerie */}
             <ProductCarousel 
               title="LADIES' LINGERIE" 
-              products={products.filter(p => p.category === 'lingerie').slice(0, 5)}
+              products={products.filter(p => p.category === 'lingerie')}
               category="lingerie"
+              theme="ladies"
             />
           </div>
         </div>

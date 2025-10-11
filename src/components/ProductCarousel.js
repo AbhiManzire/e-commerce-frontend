@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaChevronLeft, FaChevronRight, FaHeart } from 'react-icons/fa';
 
-const ProductCarousel = ({ title, products, category }) => {
+const ProductCarousel = ({ title, products, category, theme = 'default' }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [imageErrors, setImageErrors] = useState({});
+  const [isAutoScrolling, setIsAutoScrolling] = useState(true);
   const productsPerView = 5;
 
   const nextSlide = () => {
@@ -18,6 +19,19 @@ const ProductCarousel = ({ title, products, category }) => {
       prevIndex - productsPerView < 0 ? Math.max(0, products.length - productsPerView) : prevIndex - productsPerView
     );
   };
+
+  // Auto-scroll effect
+  useEffect(() => {
+    if (!isAutoScrolling || !products || products.length <= productsPerView) return;
+
+    const interval = setInterval(() => {
+      setCurrentIndex((prevIndex) => 
+        prevIndex + productsPerView >= products.length ? 0 : prevIndex + productsPerView
+      );
+    }, 4000); // Auto-scroll every 4 seconds
+
+    return () => clearInterval(interval);
+  }, [isAutoScrolling, products, productsPerView]);
 
   // Don't render if no products
   if (!products || products.length === 0) {
@@ -39,15 +53,22 @@ const ProductCarousel = ({ title, products, category }) => {
     return null;
   }
 
-  // Show all valid products up to 5, or all available products if less than 5
-  const visibleProducts = validProducts.slice(0, Math.min(5, validProducts.length));
+  // Show all valid products for scrolling effect
+  const visibleProducts = validProducts;
 
   return (
-    <div className="bg-white py-12">
-      <div className="max-w-7xl mx-auto px-4">
+    <div className="relative py-8 overflow-hidden">
+      {/* Background Pattern */}
+      <div className="absolute inset-0 opacity-5">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23000000' fill-opacity='0.1'%3E%3Cpath d='M20 20c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10zm10 0c0-5.5-4.5-10-10-10s-10 4.5-10 10 4.5 10 10 10 10-4.5 10-10z'/%3E%3C/g%3E%3C/svg%3E")`,
+        }}></div>
+      </div>
+      
+      <div className="relative z-10 max-w-7xl mx-auto px-4">
         {/* Header */}
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-3xl font-bold text-black uppercase tracking-wide">
+          <h2 className="text-xl font-bold bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 bg-clip-text text-transparent uppercase tracking-wide">
             {title}
           </h2>
           <Link
@@ -58,11 +79,44 @@ const ProductCarousel = ({ title, products, category }) => {
           </Link>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-6">
-          {visibleProducts.map((product) => (
-            <ProductCard key={product._id} product={product} imageErrors={imageErrors} setImageErrors={setImageErrors} />
-          ))}
+        {/* Products Carousel with Auto-scroll */}
+        <div 
+          className="relative overflow-hidden"
+          onMouseEnter={() => setIsAutoScrolling(false)}
+          onMouseLeave={() => setIsAutoScrolling(true)}
+        >
+          {/* Navigation Arrows */}
+          {visibleProducts.length > productsPerView && (
+            <>
+              <button
+                onClick={prevSlide}
+                className="absolute left-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+              >
+                <FaChevronLeft className="text-gray-600" />
+              </button>
+              <button
+                onClick={nextSlide}
+                className="absolute right-0 top-1/2 transform -translate-y-1/2 z-10 bg-white shadow-lg rounded-full p-3 hover:bg-gray-50 transition-colors"
+              >
+                <FaChevronRight className="text-gray-600" />
+              </button>
+            </>
+          )}
+
+          {/* Products Container */}
+          <div 
+            className="flex transition-transform duration-500 ease-in-out"
+            style={{
+              transform: `translateX(-${currentIndex * (100 / productsPerView)}%)`,
+              width: `${(visibleProducts.length / productsPerView) * 100}%`
+            }}
+          >
+            {visibleProducts.map((product) => (
+              <div key={product._id} className="flex-shrink-0 px-3" style={{ width: `${100 / visibleProducts.length}%` }}>
+                <ProductCard product={product} imageErrors={imageErrors} setImageErrors={setImageErrors} />
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -113,9 +167,9 @@ const ProductCard = ({ product, imageErrors, setImageErrors }) => {
 
   return (
     <div className="group">
-      <div className="bg-white rounded-lg shadow-sm border-0 h-full flex flex-col">
+      <div className="bg-white rounded-lg shadow-sm border-0 h-full flex flex-col transform hover:scale-105 transition-all duration-300 hover:shadow-lg">
         <div 
-          className="relative overflow-hidden"
+          className="relative overflow-hidden rounded-t-lg"
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
         >

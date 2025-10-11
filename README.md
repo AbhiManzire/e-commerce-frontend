@@ -52,3 +52,4 @@ The app will start on port 3000.
 - `npm run build` - Build for production
 - `npm test` - Run tests
 - `npm run eject` - Eject from Create React App
+
