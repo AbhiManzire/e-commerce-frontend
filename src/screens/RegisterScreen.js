@@ -23,7 +23,12 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (userInfo) {
-      navigate(redirect);
+      // Check if user is admin and redirect accordingly
+      if (userInfo.isAdmin) {
+        navigate('/admin/dashboard');
+      } else {
+        navigate(redirect);
+      }
     }
   }, [navigate, userInfo, redirect]);
 

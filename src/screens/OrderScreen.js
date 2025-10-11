@@ -11,7 +11,6 @@ const OrderScreen = () => {
   const dispatch = useDispatch();
 
   const { order, loading, error } = useSelector((state) => state.order);
-  const { userInfo } = useSelector((state) => state.user);
 
   useEffect(() => {
     if (id) {
@@ -161,8 +160,8 @@ const OrderScreen = () => {
                       </p>
                     </div>
                     <div className="text-right">
-                      <p className="font-medium text-gray-900">₹{(item.price * item.qty).toLocaleString()}</p>
-                      <p className="text-sm text-gray-600">₹{item.price.toLocaleString()} each</p>
+                      <p className="font-medium text-gray-900">₹{((item.price || 0) * (item.qty || 0)).toLocaleString()}</p>
+                      <p className="text-sm text-gray-600">₹{(item.price || 0).toLocaleString()} each</p>
                     </div>
                   </div>
                 ))}
@@ -222,21 +221,21 @@ const OrderScreen = () => {
               
               <div className="space-y-3 mb-4">
                 <div className="flex justify-between">
-                  <span className="text-gray-600">Items ({order.orderItems.length})</span>
-                  <span>₹{order.itemsPrice.toLocaleString()}</span>
+                  <span className="text-gray-600">Items ({order.orderItems?.length || 0})</span>
+                  <span>₹{order.orderItems?.reduce((acc, item) => acc + (item.price * item.qty), 0)?.toLocaleString() || '0'}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Shipping</span>
-                  <span>{order.shippingPrice === 0 ? 'Free' : `₹${order.shippingPrice}`}</span>
+                  <span>{order.shippingPrice === 0 ? 'Free' : `₹${order.shippingPrice?.toLocaleString() || '0'}`}</span>
                 </div>
                 <div className="flex justify-between">
                   <span className="text-gray-600">Tax (GST 18%)</span>
-                  <span>₹{order.taxPrice.toLocaleString()}</span>
+                  <span>₹{order.taxPrice?.toLocaleString() || '0'}</span>
                 </div>
                 <hr className="my-3" />
                 <div className="flex justify-between text-lg font-semibold">
                   <span>Total</span>
-                  <span>₹{order.totalPrice.toLocaleString()}</span>
+                  <span>₹{order.totalPrice?.toLocaleString() || '0'}</span>
                 </div>
               </div>
 

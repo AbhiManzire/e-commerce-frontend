@@ -23,6 +23,9 @@ import UserEditScreen from './screens/UserEditScreen';
 import ProductListScreen from './screens/ProductListScreen';
 import ProductEditScreen from './screens/ProductEditScreen';
 import OrderListScreen from './screens/OrderListScreen';
+import AdminDashboard from './screens/AdminDashboard';
+import AdminRoute from './components/AdminRoute';
+import AdminLayout from './components/AdminLayout';
 import { clearError, clearSuccess } from './store/slices/userSlice';
 import { clearError as clearProductError } from './store/slices/productSlice';
 import { clearError as clearOrderError } from './store/slices/orderSlice';
@@ -53,38 +56,41 @@ function App() {
   }, [userError, productError, orderError, userSuccess, dispatch]);
 
   return (
-    <div className="min-h-screen flex flex-col">
-      <Header />
-      <main className="flex-grow">
-        <Routes>
-          <Route path="/" element={<HomeScreen />} />
-          <Route path="/about" element={<AboutScreen />} />
-          <Route path="/contact" element={<ContactScreen />} />
-          <Route path="/search/:keyword" element={<HomeScreen />} />
-          <Route path="/page/:pageNumber" element={<HomeScreen />} />
-          <Route path="/search/:keyword/page/:pageNumber" element={<HomeScreen />} />
-          <Route path="/category/:category" element={<HomeScreen />} />
-          <Route path="/category/:category/page/:pageNumber" element={<HomeScreen />} />
-          <Route path="/product/:id" element={<ProductScreen />} />
-          <Route path="/cart/:id?" element={<CartScreen />} />
-          <Route path="/login" element={<LoginScreen />} />
-          <Route path="/mobile-login" element={<MobileLoginScreen />} />
-          <Route path="/register" element={<RegisterScreen />} />
-          <Route path="/profile" element={<ProfileScreen />} />
-          <Route path="/shipping" element={<ShippingScreen />} />
-          <Route path="/payment" element={<PaymentScreen />} />
-          <Route path="/placeorder" element={<PlaceOrderScreen />} />
-          <Route path="/checkout" element={<CheckoutScreen />} />
-          <Route path="/order/:id" element={<OrderScreen />} />
-          <Route path="/admin/userlist" element={<UserListScreen />} />
-          <Route path="/admin/user/:id/edit" element={<UserEditScreen />} />
-          <Route path="/admin/productlist" element={<ProductListScreen />} />
-          <Route path="/admin/product/:id/edit" element={<ProductEditScreen />} />
-          <Route path="/admin/orderlist" element={<OrderListScreen />} />
-        </Routes>
-      </main>
-      <Footer />
-    </div>
+    <Routes>
+      {/* Admin Routes - No Header/Footer */}
+      <Route path="/admin/*" element={<AdminRoute><AdminLayout /></AdminRoute>} />
+      
+      {/* Main Website Routes - With Header/Footer */}
+      <Route path="/*" element={
+        <div className="min-h-screen flex flex-col">
+          <Header />
+          <main className="flex-grow">
+            <Routes>
+              <Route path="/" element={<HomeScreen />} />
+              <Route path="/about" element={<AboutScreen />} />
+              <Route path="/contact" element={<ContactScreen />} />
+              <Route path="/search/:keyword" element={<HomeScreen />} />
+              <Route path="/page/:pageNumber" element={<HomeScreen />} />
+              <Route path="/search/:keyword/page/:pageNumber" element={<HomeScreen />} />
+              <Route path="/category/:category" element={<HomeScreen />} />
+              <Route path="/category/:category/page/:pageNumber" element={<HomeScreen />} />
+              <Route path="/product/:id" element={<ProductScreen />} />
+              <Route path="/cart/:id?" element={<CartScreen />} />
+              <Route path="/login" element={<LoginScreen />} />
+              <Route path="/mobile-login" element={<MobileLoginScreen />} />
+              <Route path="/register" element={<RegisterScreen />} />
+              <Route path="/profile" element={<ProfileScreen />} />
+              <Route path="/shipping" element={<ShippingScreen />} />
+              <Route path="/payment" element={<PaymentScreen />} />
+              <Route path="/placeorder" element={<PlaceOrderScreen />} />
+              <Route path="/checkout" element={<CheckoutScreen />} />
+              <Route path="/order/:id" element={<OrderScreen />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      } />
+    </Routes>
   );
 }
 

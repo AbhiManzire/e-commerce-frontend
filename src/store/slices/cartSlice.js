@@ -10,7 +10,7 @@ const shippingAddressFromStorage = localStorage.getItem('shippingAddress')
 
 const paymentMethodFromStorage = localStorage.getItem('paymentMethod')
   ? JSON.parse(localStorage.getItem('paymentMethod'))
-  : {};
+  : 'mobile_otp';
 
 const initialState = {
   cartItems: cartItemsFromStorage,
@@ -57,8 +57,12 @@ const cartSlice = createSlice({
       localStorage.setItem('shippingAddress', JSON.stringify(action.payload));
     },
     savePaymentMethod: (state, action) => {
-      state.paymentMethod = action.payload;
-      localStorage.setItem('paymentMethod', JSON.stringify(action.payload));
+      // Ensure paymentMethod is always a string
+      const paymentMethod = typeof action.payload === 'string' 
+        ? action.payload 
+        : action.payload.method || 'mobile_otp';
+      state.paymentMethod = paymentMethod;
+      localStorage.setItem('paymentMethod', JSON.stringify(paymentMethod));
     },
     clearCart: (state) => {
       state.cartItems = [];

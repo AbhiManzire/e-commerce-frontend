@@ -197,10 +197,10 @@ const Header = () => {
                   </Link>
                   {userInfo.isAdmin && (
                     <Link
-                      to="/admin/productlist"
+                      to="/admin/dashboard"
                       className="block px-4 py-2 text-gray-300 hover:text-white hover:bg-blue-500 transition-colors"
                     >
-                      Admin
+                      Admin Dashboard
                     </Link>
                   )}
                   <button

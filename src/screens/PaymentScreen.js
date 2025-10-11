@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { FaArrowLeft } from 'react-icons/fa';
 import { saveShippingAddress } from '../store/slices/cartSlice';
-import { createMockOrder } from '../store/slices/orderSlice';
+import { createOrder } from '../store/slices/orderSlice';
 import PaymentModal from '../components/PaymentModal';
 import Payment from '../components/Payment';
 import Meta from '../components/Meta';
@@ -15,7 +15,7 @@ const PaymentScreen = () => {
   
   const { cartItems, shippingAddress } = useSelector((state) => state.cart);
   const { userInfo } = useSelector((state) => state.user);
-  const { order, loading, error, success } = useSelector((state) => state.order);
+  const { order } = useSelector((state) => state.order);
 
   const [showPaymentModal, setShowPaymentModal] = useState(true);
   const [showPayment, setShowPayment] = useState(false);
@@ -46,19 +46,19 @@ const PaymentScreen = () => {
   }, [userInfo, shippingAddress, dispatch]);
 
   const handleProceedToPay = () => {
-    // Create mock order first
+    // Create real order in database
     const orderData = {
-      userId: userInfo._id,
       orderItems: cartItems,
       shippingAddress: shippingAddress,
-      paymentMethod: 'mobile_otp',
+      paymentMethod: 'mobile_otp', // Always use string value
       itemsPrice: itemsPrice,
       shippingPrice: shippingPrice,
       taxPrice: taxPrice,
       totalPrice: totalPrice
     };
 
-    dispatch(createMockOrder(orderData));
+    console.log('🔄 PaymentScreen: Creating order with data:', orderData);
+    dispatch(createOrder(orderData));
     setShowPaymentModal(false);
     setShowPayment(true);
   };

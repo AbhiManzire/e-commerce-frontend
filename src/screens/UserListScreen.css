@@ -1,0 +1,47 @@
+/* User List Table Styles */
+.user-table-container {
+  max-height: 24rem; /* 384px - equivalent to max-h-96 */
+  overflow-y: auto;
+  overflow-x: auto;
+  border: 1px solid #e5e7eb;
+  border-radius: 0.5rem;
+}
+
+/* Custom scrollbar styling */
+.user-table-container::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.user-table-container::-webkit-scrollbar-track {
+  background: #f3f4f6;
+  border-radius: 4px;
+}
+
+.user-table-container::-webkit-scrollbar-thumb {
+  background: #d1d5db;
+  border-radius: 4px;
+}
+
+.user-table-container::-webkit-scrollbar-thumb:hover {
+  background: #9ca3af;
+}
+
+/* Sticky header */
+.user-table-header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background-color: #f9fafb;
+}
+
+/* Table row hover effect */
+.user-table-row:hover {
+  background-color: #f9fafb;
+}
+
+/* Ensure table takes full width */
+.user-table {
+  width: 100%;
+  min-width: 100%;
+}

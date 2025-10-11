@@ -67,28 +67,32 @@ const CheckoutScreen = () => {
   };
 
   const handleProceedToPay = async () => {
+    // Ensure paymentMethod is always a string
+    const paymentMethodValue = typeof paymentMethod === 'string' 
+      ? paymentMethod 
+      : paymentMethod?.method || 'mobile_otp';
+
     const orderData = {
-      userId: userInfo._id,
       orderItems: cartItems,
       shippingAddress: shippingAddress,
-      paymentMethod: paymentMethod || 'mobile_otp',
+      paymentMethod: paymentMethodValue,
       itemsPrice: itemsPrice,
       shippingPrice: shippingPrice,
       taxPrice: taxPrice,
       totalPrice: totalPrice
     };
 
-    // Use mock order creation for testing
-    dispatch(createMockOrder(orderData));
+    console.log('🔄 Creating order with paymentMethod:', paymentMethodValue);
+    console.log('📦 Order data:', orderData);
+
+    // Create real order in database
+    dispatch(createOrder(orderData));
     setShowPaymentModal(false);
   };
 
   const handlePaymentSuccess = (paymentData) => {
-    // Update mock order payment status if it's a mock order
-    if (currentOrder && currentOrder._id.startsWith('mock-order-')) {
-      dispatch(updateMockOrderPayment());
-    }
-    
+    // For real orders, payment is handled by the payment component
+    // The order is already created and will be updated with payment info
     toast.success('Order placed successfully!');
     dispatch(clearCart());
     navigate(`/order/${currentOrder._id}`);

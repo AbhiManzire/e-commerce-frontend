@@ -6,6 +6,7 @@ export const createOrder = createAsyncThunk(
   'order/createOrder',
   async (order, { getState, rejectWithValue }) => {
     try {
+      console.log('🔄 createOrder called with data:', order);
       const { user } = getState();
       const config = {
         headers: {
@@ -13,10 +14,14 @@ export const createOrder = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await api.post('http://localhost:5000/api/orders', order, config);
+      console.log('📤 Sending order to API:', order);
+      const response = await api.post('/api/orders', order, config);
+      console.log('📊 createOrder response:', response.data);
       return response.data;
     } catch (error) {
-      return rejectWithValue(error.response.data);
+      console.error('❌ createOrder error:', error);
+      console.error('❌ Error response:', error.response?.data);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -93,7 +98,7 @@ export const getOrderById = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await api.get(`http://localhost:5000/api/orders/${id}`, config);
+      const response = await api.get(`/api/orders/${id}`, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response?.data || { message: 'Failed to fetch order' });
@@ -112,7 +117,7 @@ export const payOrder = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await api.put(`http://localhost:5000/api/orders/${orderId}/pay`, paymentResult, config);
+      const response = await api.put(`/api/orders/${orderId}/pay`, paymentResult, config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
@@ -130,10 +135,53 @@ export const getUserOrders = createAsyncThunk(
           Authorization: `Bearer ${user.userInfo.token}`,
         },
       };
-      const response = await api.get('http://localhost:5000/api/orders/myorders', config);
+      const response = await api.get('/api/orders/myorders', config);
       return response.data;
     } catch (error) {
       return rejectWithValue(error.response.data);
+    }
+  }
+);
+
+export const fetchAllOrders = createAsyncThunk(
+  'order/fetchAllOrders',
+  async (_, { getState, rejectWithValue }) => {
+    try {
+      console.log('🔄 fetchAllOrders called');
+      const { user } = getState();
+      const config = {
+        headers: {
+          Authorization: `Bearer ${user.userInfo.token}`,
+        },
+      };
+      const response = await api.get('/api/orders', config);
+      console.log('📊 fetchAllOrders response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('❌ fetchAllOrders error:', error);
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
+export const updateOrder = createAsyncThunk(
+  'order/updateOrder',
+  async ({ orderId, updateData }, { getState, rejectWithValue }) => {
+    try {
+      console.log('🔄 updateOrder called with:', { orderId, updateData });
+      const { user } = getState();
+      const config = {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${user.userInfo.token}`,
+        },
+      };
+      const response = await api.put(`/api/orders/${orderId}`, updateData, config);
+      console.log('📊 updateOrder response:', response.data);
+      return response.data;
+    } catch (error) {
+      console.error('❌ updateOrder error:', error);
+      return rejectWithValue(error.response?.data || error.message);
     }
   }
 );
@@ -233,7 +281,10 @@ const orderSlice = createSlice({
       })
       .addCase(getOrderById.fulfilled, (state, action) => {
         state.loading = false;
-        state.order = action.payload;
+        // Only update if the order is different to prevent unnecessary re-renders
+        if (!state.order || state.order._id !== action.payload._id) {
+          state.order = action.payload;
+        }
       })
       .addCase(getOrderById.rejected, (state, action) => {
         state.loading = false;
@@ -265,6 +316,43 @@ const orderSlice = createSlice({
       .addCase(getUserOrders.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload?.message || 'Failed to get orders';
+      })
+      // Fetch all orders (admin)
+      .addCase(fetchAllOrders.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(fetchAllOrders.fulfilled, (state, action) => {
+        state.loading = false;
+        console.log('🎯 Redux: fetchAllOrders.fulfilled');
+        console.log('📦 Redux: Action payload:', action.payload);
+        state.orders = Array.isArray(action.payload) ? action.payload : [];
+        console.log('✅ Redux: Orders state updated successfully');
+      })
+      .addCase(fetchAllOrders.rejected, (state, action) => {
+        state.loading = false;
+        console.error('❌ Redux: fetchAllOrders.rejected');
+        console.error('❌ Redux: Error payload:', action.payload);
+        state.error = action.payload?.message || 'Failed to fetch orders';
+      })
+      // Update order (admin)
+      .addCase(updateOrder.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(updateOrder.fulfilled, (state, action) => {
+        state.loading = false;
+        state.order = action.payload;
+        state.success = true;
+        // Update the order in the orders array if it exists
+        const index = state.orders.findIndex(order => order._id === action.payload._id);
+        if (index !== -1) {
+          state.orders[index] = { ...state.orders[index], ...action.payload };
+        }
+      })
+      .addCase(updateOrder.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload?.message || 'Failed to update order';
       });
   },
 });

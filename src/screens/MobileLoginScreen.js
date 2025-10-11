@@ -16,8 +16,12 @@ const MobileLoginScreen = () => {
     // Dispatch mobile login action to update Redux store
     dispatch(mobileLogin(userData));
     
-    // Navigate to the intended page
-    navigate(redirect);
+    // Check if user is admin and redirect accordingly
+    if (userData.isAdmin) {
+      navigate('/admin/dashboard');
+    } else {
+      navigate(redirect);
+    }
   };
 
   const handleCancel = () => {
